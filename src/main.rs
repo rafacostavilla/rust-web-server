@@ -32,6 +32,13 @@ fn handle_connection(mut stream: TcpStream){
             
         stream.write_all(response.as_bytes()).unwrap();
     }else{
-        //TODO: Other request
+        let status_line = "HTTP/1.1 404 NOT FOUND";
+        let content = fs::read_to_string("404.html").unwrap();
+        let content_length = content.len(); 
+        
+        let response = 
+            format!("{status_line}\r\nContent-Length: {content_length}\r\n\r\n{content}");
+            
+        stream.write_all(response.as_bytes()).unwrap();
     }
 }
