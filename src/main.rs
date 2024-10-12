@@ -21,16 +21,15 @@ fn handle_connection(mut stream: TcpStream){
         .unwrap();
     
     let success_status_line = "GET / HTTP/1.1";
-    let mut file_path = "404.html";
-
-    let mut status_line = "HTTP/1.1 404 NOT FOUND";
-
-    if request_line == success_status_line{
-        status_line = "HTTP/1.1 200 OK";
-        file_path = "hello.html";
-    }
     
-    let content = fs::read_to_string(file_path).unwrap();
+
+    let (status_line,filepath) = if request_line == success_status_line{
+        ("HTTP/1.1 200 OK","hello.html")
+    }else{
+        ("HTTP/1.1 404 NOT FOUND","404.html")   
+    };
+    
+    let content = fs::read_to_string(filepath).unwrap();
     let content_length = content.len(); 
         
     let response = 
