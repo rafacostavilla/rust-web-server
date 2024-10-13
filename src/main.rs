@@ -1,4 +1,4 @@
-use std::{fs, io::{BufRead, BufReader, Write}, net::{TcpListener, TcpStream}, thread::Thread, time::Duration};
+use std::{fs, io::{BufRead, BufReader, Write}, net::{TcpListener, TcpStream}, time::Duration};
 use std::thread;
 use rust_web_server::ThreadPool;
 
